@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Either the SSH alias or the hostname of the nodes to SCP too.
+UTIL_NODE=
+WEB_NODE1=
+WEB_NODE2=
+
+scp $2 $UTIL_NODE:/app/$1/htdocs/moodle/$2
+scp $2 $WEB_NODE1:/app/$1/htdocs/moodle/$2
+scp $2 $WEB_NODE2:/app/$1/htdocs/moodle/$2

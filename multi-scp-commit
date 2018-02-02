@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Either the SSH alias or the hostname of the nodes to SCP too.
+UTIL_NODE=
+WEB_NODE1=
+WEB_NODE2=
+
+# Set the internal field separator to a newline. This is to determine the
+# correct delimiter when capturing filenames from the dump of git diff-tree
+IFS=$'\n'
+
+file_names=( $(git diff-tree --no-commit-id --name-only -r $2) )
+
+for (( i=0; i < ${#file_names[@]}; i++ ))
+do
+    scp ${file_names[$i]} $UTIL_NODE:/app/$1/htdocs/moodle/${file_names[$i]}
+    scp ${file_names[$i]} $WEB_NODE1:/app/$1/htdocs/moodle/${file_names[$i]}
+    scp ${file_names[$i]} $WEB_NODE2:/app/$1/htdocs/moodle/${file_names[$i]}
+done
